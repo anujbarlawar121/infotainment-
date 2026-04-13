@@ -87,3 +87,4 @@ New signups now require:
 - API failures fall back to the latest cached content and then to bundled sample content.
 - New database tables are auto-created on startup: `login_history` and `content_interactions`.
 - `schema.sql` contains the schema and `sample_data.sql` contains optional insert statements for manual seeding.
+Updated by Anuj
