@@ -1,0 +1,149 @@
+{
+  "news": [
+    {
+      "title": "AI startups reshape the future of local media",
+      "description": "Investors are backing personalized news platforms that blend community reporting with machine learning.",
+      "url": "https://example.com/news/ai-startups",
+      "image": "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=900&q=80",
+      "category": "News"
+    },
+    {
+      "title": "Streaming platforms lean into interactive storytelling",
+      "description": "Entertainment companies are investing in branching narratives and viewer-controlled experiences.",
+      "url": "https://example.com/news/interactive-storytelling",
+      "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=900&q=80",
+      "category": "News"
+    },
+    {
+      "title": "Esports viewership spikes during global finals week",
+      "description": "Live event data shows a major jump in esports audiences across mobile and desktop.",
+      "url": "https://example.com/news/esports-viewership",
+      "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80",
+      "category": "News"
+    }
+  ],
+  "movies": [
+    {
+      "title": "Aurora Nights",
+      "description": "A dreamy sci-fi adventure with neon skylines, whispered mysteries, and a very human core.",
+      "url": "https://example.com/movies/aurora-nights",
+      "image": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=900&q=80",
+      "category": "Movies"
+    },
+    {
+      "title": "Velocity Run",
+      "description": "An adrenaline-fueled action film about underground racers and a city controlled by algorithms.",
+      "url": "https://example.com/movies/velocity-run",
+      "image": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=900&q=80",
+      "category": "Movies"
+    },
+    {
+      "title": "Paper Moons",
+      "description": "An indie drama that turns ordinary evenings into deeply memorable scenes.",
+      "url": "https://example.com/movies/paper-moons",
+      "image": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=900&q=80",
+      "category": "Movies"
+    }
+  ],
+  "songs": [
+    {
+      "title": "Midnight City Playlist",
+      "description": "Synth-pop mix for late-night coding and skyline drives.",
+      "url": "https://example.com/songs/midnight-city-playlist",
+      "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80",
+      "category": "Songs"
+    },
+    {
+      "title": "Sunrise Acoustic Sessions",
+      "description": "Warm acoustic tracks that pair well with reflective mornings and quiet coffee breaks.",
+      "url": "https://example.com/songs/sunrise-acoustic",
+      "image": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=80",
+      "category": "Songs"
+    },
+    {
+      "title": "Pulse Arcade",
+      "description": "Electronic beats built for workouts, gaming streams, and high-energy sessions.",
+      "url": "https://example.com/songs/pulse-arcade",
+      "image": "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=900&q=80",
+      "category": "Songs"
+    }
+  ],
+  "videos": [
+    {
+      "title": "Top 10 viral moments of the week",
+      "description": "A rapid recap of entertainment clips that dominated feeds this week.",
+      "url": "https://example.com/videos/viral-moments",
+      "image": "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=900&q=80",
+      "category": "Videos"
+    },
+    {
+      "title": "Behind the scenes of a blockbuster score",
+      "description": "Composers break down how emotional themes are built for modern films.",
+      "url": "https://example.com/videos/blockbuster-score",
+      "image": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=900&q=80",
+      "category": "Videos"
+    },
+    {
+      "title": "How creators build a trending meme",
+      "description": "A short-form deep dive into timing, editing, and internet culture.",
+      "url": "https://example.com/videos/trending-meme",
+      "image": "https://images.unsplash.com/photo-1522120690312-5d8c734b1f0d?auto=format&fit=crop&w=900&q=80",
+      "category": "Videos"
+    }
+  ],
+  "memes": [
+    {
+      "title": "Debugger vs. deadline",
+      "description": "When the bug disappears the second your teammate walks over.",
+      "url": "https://example.com/memes/debugger-vs-deadline",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
+      "category": "Memes"
+    },
+    {
+      "title": "Streaming buffer face",
+      "description": "That exact expression when the finale pauses at 99 percent.",
+      "url": "https://example.com/memes/streaming-buffer-face",
+      "image": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80",
+      "category": "Memes"
+    },
+    {
+      "title": "Playlist mood swing",
+      "description": "Shuffle goes from calm piano to full stadium anthem in two songs.",
+      "url": "https://example.com/memes/playlist-mood-swing",
+      "image": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80",
+      "category": "Memes"
+    }
+  ],
+  "categories": [
+    {
+      "title": "Breaking News",
+      "slug": "news",
+      "count": 3,
+      "description": "Daily updates, global stories, and technology shifts."
+    },
+    {
+      "title": "Movies",
+      "slug": "movies",
+      "count": 3,
+      "description": "Trending releases, trailers, and cinematic picks."
+    },
+    {
+      "title": "Songs",
+      "slug": "songs",
+      "count": 3,
+      "description": "Playlists, fresh tracks, and mood-based music."
+    },
+    {
+      "title": "Videos",
+      "slug": "videos",
+      "count": 3,
+      "description": "Top clips, creator highlights, and viral recaps."
+    },
+    {
+      "title": "Memes",
+      "slug": "memes",
+      "count": 3,
+      "description": "Internet humor and light entertainment breaks."
+    }
+  ]
+}

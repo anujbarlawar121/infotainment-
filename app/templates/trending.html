@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <span class="eyebrow">Analytics dashboard</span>
+            <h1 class="display-6 fw-bold mb-2">Trending dashboard</h1>
+            <p class="text-secondary mb-0">Live visitor and search activity paired with the latest content blocks.</p>
+        </div>
+    </div>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card metric-card h-100"><div class="card-body"><p class="metric-label">Users</p><h2>{{ stats.user_count }}</h2></div></div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card metric-card h-100"><div class="card-body"><p class="metric-label">Messages</p><h2>{{ stats.message_count }}</h2></div></div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card metric-card h-100"><div class="card-body"><p class="metric-label">Visitors</p><h2>{{ stats.visitor_count }}</h2></div></div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="card metric-card h-100"><div class="card-body"><p class="metric-label">Searches</p><h2>{{ stats.search_count }}</h2></div></div>
+        </div>
+    </div>
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card content-card h-100">
+                <div class="card-body">
+                    <h2 class="h5 mb-3">Viewed Categories</h2>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card content-card h-100">
+                <div class="card-body">
+                    <h2 class="h5 mb-3">Search Categories</h2>
+                    <canvas id="searchChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        {% for label, items in trends.items() %}
+        <div class="col-lg-6">
+            <div class="card content-card h-100">
+                <div class="card-body">
+                    <h2 class="h5 mb-3">{{ label.title() }} Highlights</h2>
+                    {% for item in items %}
+                    <div class="border rounded-4 p-3 mb-3 bg-dark-subtle">
+                        <h3 class="h6">{{ item.title }}</h3>
+                        <p class="small text-secondary mb-2">
+                            {{ item.provider }}{% if item.published_at %} · {{ item.published_at }}{% endif %}
+                        </p>
+                        <p class="text-secondary mb-2">{{ item.description }}</p>
+                        <a
+                            href="{{ item.url }}"
+                            target="_blank"
+                            class="btn btn-sm btn-outline-light track-content-link"
+                            data-source-page="trending"
+                            data-category="{{ item.category }}"
+                            data-title="{{ item.title }}"
+                            data-provider="{{ item.provider }}"
+                            data-domain="{{ item.domain }}"
+                            data-score=""
+                        >
+                            Open
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+window.dashboardStats = {{ stats|tojson }};
+</script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
+            <div class="card auth-card shadow-lg">
+                <div class="card-body p-4 p-lg-5">
+                    <h1 class="h2 mb-3">Create your account</h1>
+                    <form method="post" class="row g-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" minlength="8" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" minlength="8" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Preferred Mood</label>
+                            <select name="preferred_mood" class="form-select">
+                                <option>happy</option>
+                                <option>relaxed</option>
+                                <option>excited</option>
+                                <option>curious</option>
+                                <option>sad</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Interests</label>
+                            <input type="text" name="interests" class="form-control" placeholder="AI, music, comedy, football">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Favorite Category</label>
+                            <input type="text" name="favorite_category" class="form-control" value="News">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Favorite Artist</label>
+                            <input type="text" name="favorite_artist" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Favorite Topic</label>
+                            <input type="text" name="favorite_topic" class="form-control">
+                        </div>
+                        <div class="col-12 d-grid">
+                            <button class="btn btn-primary btn-lg">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

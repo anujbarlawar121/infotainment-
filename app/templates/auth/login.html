@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card auth-card shadow-lg">
+                <div class="card-body p-4 p-lg-5">
+                    <h1 class="h2 mb-3">Welcome back</h1>
+                    <p class="text-secondary mb-4">Sign in to sync recommendations, visitor logs, and your saved interests.</p>
+                    <form method="post" class="row g-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="col-12">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="col-12 d-grid">
+                            <button class="btn btn-primary btn-lg">Login</button>
+                        </div>
+                    </form>
+                    <div class="small text-secondary mt-4">
+                        Demo login: <code>demo@example.com / demo123</code><br>
+                        Admin login: <code>admin@example.com / admin123</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <span class="eyebrow">Context-Aware NLP</span>
+            <h1 class="display-6 fw-bold mb-3">Analyze the mood behind your text</h1>
+            <p class="text-secondary">A context-aware sentiment engine checks phrases, sentence turns, negations, intensity, and emotional keywords to produce a more reliable positive, neutral, negative, or mixed result.</p>
+            <form method="post" class="card content-card">
+                <div class="card-body">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <label class="form-label">Enter text</label>
+                    <textarea name="text" rows="8" class="form-control mb-3" placeholder="Type how you feel about the latest news, music, or entertainment...">{{ text }}</textarea>
+                    <button class="btn btn-primary">Analyze Sentiment</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <div class="card content-card h-100">
+                <div class="card-body">
+                    <h2 class="h4 mb-3">Result</h2>
+                    {% if analysis %}
+                    <div class="sentiment-pill sentiment-{{ analysis.label|lower }}">{{ analysis.label }}</div>
+                    <p class="mt-3 mb-2">Confidence: <strong>{{ analysis.confidence }}%</strong></p>
+                    <p class="text-secondary mb-3">{{ analysis.summary }}</p>
+                    <div class="small text-secondary mb-3">Method: {{ analysis.method }}</div>
+                    <div class="list-group list-group-flush">
+                        {% for label, score in analysis.scores.items() %}
+                        <div class="list-group-item bg-transparent d-flex justify-content-between">
+                            <span>{{ label }}</span>
+                            <span>{{ score }}%</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if analysis.positive_cues or analysis.negative_cues %}
+                    <div class="mt-4">
+                        <h3 class="h6 mb-2">Detected cues</h3>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for cue in analysis.positive_cues %}
+                            <span class="cue-badge cue-positive">{{ cue }}</span>
+                            {% endfor %}
+                            {% for cue in analysis.negative_cues %}
+                            <span class="cue-badge cue-negative">{{ cue }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <p class="text-secondary mb-0">Submit a sentence to see live sentiment predictions.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

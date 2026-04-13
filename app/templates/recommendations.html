@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+        <div>
+            <span class="eyebrow">AI recommender</span>
+            <h1 class="display-6 fw-bold mb-2">Mood and interest recommendations</h1>
+            <p class="text-secondary mb-0">Scikit-learn ranks content similarity while your profile stays synced in the database.</p>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card content-card h-100">
+                <div class="card-body">
+                    <form method="post" class="row g-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="col-12">
+                            <label class="form-label">How are you feeling?</label>
+                            <select name="mood" class="form-select">
+                                {% for option in ["happy", "relaxed", "excited", "curious", "sad"] %}
+                                <option value="{{ option }}" {% if mood == option %}selected{% endif %}>{{ option.title() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Interests</label>
+                            <textarea name="interests" rows="5" class="form-control">{{ interests }}</textarea>
+                        </div>
+                        <div class="col-12 d-grid">
+                            <button class="btn btn-primary">Refresh Recommendations</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="row g-4">
+                {% for item in results %}
+                <div class="col-md-6">
+                    <div class="card content-card h-100">
+                        {% if item.image %}
+                        <img src="{{ item.image }}" class="card-img-top content-image" alt="{{ item.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge text-bg-info">{{ item.category }}</span>
+                                <span class="small text-secondary">{{ item.score }}% match</span>
+                            </div>
+                            <h5>{{ item.title }}</h5>
+                            <p class="small text-secondary mb-2">
+                                {{ item.provider }}{% if item.domain %} · {{ item.domain }}{% endif %}{% if item.published_at %} · {{ item.published_at }}{% endif %}
+                            </p>
+                            <p class="text-secondary">{{ item.description }}</p>
+                            <p class="small text-info-emphasis mb-3">{{ item.match_explanation }}</p>
+                            <a
+                                href="{{ item.url }}"
+                                target="_blank"
+                                class="btn btn-outline-light track-content-link"
+                                data-source-page="recommendations"
+                                data-category="{{ item.category }}"
+                                data-title="{{ item.title }}"
+                                data-provider="{{ item.provider }}"
+                                data-domain="{{ item.domain }}"
+                                data-score="{{ item.score }}"
+                                data-mood="{{ mood }}"
+                                data-interests="{{ interests }}"
+                            >
+                                Explore
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

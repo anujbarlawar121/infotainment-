@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-4">
+        <div>
+            <span class="eyebrow">Account security</span>
+            <h1 class="display-6 fw-bold mb-2">My login history</h1>
+            <p class="text-secondary mb-0">Your own login events with timestamp, browser, device, and IP details.</p>
+        </div>
+    </div>
+
+    <div class="card content-card">
+        <div class="card-body">
+            <form method="get" class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <select class="form-select" name="status">
+                        <option value="" {% if not status_filter %}selected{% endif %}>All statuses</option>
+                        <option value="success" {% if status_filter == "success" %}selected{% endif %}>Success</option>
+                        <option value="failed" {% if status_filter == "failed" %}selected{% endif %}>Failed</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Time</th>
+                            <th>Browser</th>
+                            <th>Device</th>
+                            <th>IP</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in pagination.items %}
+                        <tr>
+                            <td>
+                                <span class="badge {% if event.status == 'success' %}text-bg-success{% else %}text-bg-danger{% endif %}">
+                                    {{ event.status }}
+                                </span>
+                            </td>
+                            <td>{{ event.attempted_email }}</td>
+                            <td>{{ event.occurred_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>{{ event.browser }}</td>
+                            <td>{{ event.device }}</td>
+                            <td>{{ event.ip_address }}</td>
+                            <td>{{ event.failure_reason or "-" }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-secondary">No login events found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <nav>
+                <ul class="pagination">
+                    {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                    <li class="page-item {% if pagination.page == page_num %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('main.my_login_history', status=status_filter, page=page_num) }}">{{ page_num }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+{% endblock %}

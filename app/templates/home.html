@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-section">
+    <div class="container py-5">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+                <span class="eyebrow">Personalized discovery</span>
+                <h1 class="display-4 fw-bold mb-3">Your daily mix of news, entertainment, and AI-powered recommendations.</h1>
+                <p class="lead text-secondary">Track trending stories, explore movies and songs, discover viral videos and memes, and personalize the feed around your mood.</p>
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="{{ url_for('main.recommendations') }}" class="btn btn-primary btn-lg">Get Recommendations</a>
+                    <a href="{{ url_for('main.trending') }}" class="btn btn-outline-light btn-lg">View Trends</a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="hero-panel">
+                    <h5 class="mb-3">Quick Search</h5>
+                    <form class="row g-2" method="get">
+                        <div class="col-12">
+                            <input type="text" class="form-control form-control-lg" name="q" value="{{ query }}" placeholder="Search stories, artists, movies, memes...">
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-select" name="category">
+                                <option value="">All Categories</option>
+                                {% for key in ["news", "movies", "songs", "videos", "memes"] %}
+                                <option value="{{ key }}" {% if selected_category == key %}selected{% endif %}>{{ key.title() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4 d-grid">
+                            <button class="btn btn-accent">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container py-4">
+    {% if current_user and suggestions %}
+    <section class="content-section mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="h3 mb-1">Suggestions for {{ current_user.name }}</h2>
+                <p class="text-secondary mb-0">Personalized from your mood, profile, search history, and interaction history.</p>
+            </div>
+            <a href="{{ url_for('main.recommendations') }}" class="btn btn-outline-light btn-sm">Open Recommendation Studio</a>
+        </div>
+        <div class="row g-4">
+            {% for item in suggestions %}
+            <div class="col-md-6 col-xl-4">
+                <div class="card content-card h-100">
+                    {% if item.image %}
+                    <img src="{{ item.image }}" class="card-img-top content-image" alt="{{ item.title }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge text-bg-info">{{ item.category }}</span>
+                            <span class="small text-secondary">{{ item.score }}% match</span>
+                        </div>
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="small text-secondary mb-2">
+                            {{ item.provider }}{% if item.domain %} · {{ item.domain }}{% endif %}{% if item.published_at %} · {{ item.published_at }}{% endif %}
+                        </p>
+                        <p class="card-text text-secondary">{{ item.description }}</p>
+                        <p class="small text-info-emphasis mb-3">{{ item.match_explanation }}</p>
+                        <a
+                            href="{{ item.url }}"
+                            target="_blank"
+                            class="btn btn-outline-light mt-auto track-content-link"
+                            data-source-page="home-suggestions"
+                            data-category="{{ item.category }}"
+                            data-title="{{ item.title }}"
+                            data-provider="{{ item.provider }}"
+                            data-domain="{{ item.domain }}"
+                            data-score="{{ item.score }}"
+                            data-mood="{{ current_user.preferred_mood }}"
+                            data-interests="{{ current_user.interests }}"
+                        >
+                            Open Suggestion
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <div class="row g-3 mb-4">
+        {% for category in categories %}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card category-card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="card-title mb-0">{{ category.title }}</h5>
+                        <span class="badge rounded-pill text-bg-dark">{{ category.count }}</span>
+                    </div>
+                    <p class="card-text text-secondary">{{ category.description }}</p>
+                    <a class="stretched-link" href="{{ url_for('main.home', category=category.slug) }}"></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% for label, bundle in collections.items() %}
+    <section class="content-section mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="h3 mb-1">{{ label.title() }}</h2>
+                <p class="text-secondary mb-0">Fresh picks curated from APIs and built-in sample data for reliable local demos.</p>
+            </div>
+            <span class="badge rounded-pill text-bg-secondary">{{ bundle["items"]|length }} shown</span>
+        </div>
+        <div class="row g-4">
+            {% for item in bundle["items"] %}
+            <div class="col-md-6 col-xl-4">
+                <div class="card content-card h-100">
+                    {% if item.image %}
+                    <img src="{{ item.image }}" class="card-img-top content-image" alt="{{ item.title }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge text-bg-info align-self-start mb-3">{{ item.category }}</span>
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="small text-secondary mb-2">
+                            {{ item.provider }}{% if item.published_at %} · {{ item.published_at }}{% endif %}
+                        </p>
+                        <p class="card-text text-secondary">{{ item.description }}</p>
+                        <a
+                            href="{{ item.url }}"
+                            target="_blank"
+                            class="btn btn-outline-light mt-auto track-content-link"
+                            data-source-page="home"
+                            data-category="{{ item.category }}"
+                            data-title="{{ item.title }}"
+                            data-provider="{{ item.provider }}"
+                            data-domain="{{ item.domain }}"
+                            data-score=""
+                        >
+                            Open Source
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-secondary">No results matched your search for this section.</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if bundle["pages"] > 1 %}
+        <nav class="mt-4">
+            <ul class="pagination">
+                {% for page_number in range(1, bundle["pages"] + 1) %}
+                <li class="page-item {% if page == page_number %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('main.home', q=query, category=label, page=page_number) }}">{{ page_number }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+    </section>
+    {% endfor %}
+</section>
+{% endblock %}

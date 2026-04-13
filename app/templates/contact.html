@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <span class="eyebrow">Stay connected</span>
+            <h1 class="display-6 fw-bold mb-3">Contact us</h1>
+            <p class="text-secondary">Send feedback, request new integrations, or share feature ideas. Messages are stored in the database and surfaced in the admin dashboard.</p>
+        </div>
+        <div class="col-lg-7">
+            <div class="card content-card">
+                <div class="card-body p-4">
+                    <form method="post" class="row g-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Subject</label>
+                            <input type="text" name="subject" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Message</label>
+                            <textarea name="message" rows="6" class="form-control" required></textarea>
+                        </div>
+                        <div class="col-12 d-grid">
+                            <button class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
